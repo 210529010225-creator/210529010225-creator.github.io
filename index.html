@@ -228,7 +228,7 @@ function renderProjects(){
 function openProject(id){
   const p=projectById(id);if(!p)return;
   const items=p.workItems||[];
-  const rows=items.length?items.map(w=>'<tr><td>'+esc(w.date)+'</td><td>'+esc(w.content)+'</td><td>'+esc(w.review||"—")+'</td><td class="status-dot">'+(w.done?"✓ 已完成":"○ 进行中")+'</td></tr>').join(""):'<tr><td colspan="4">暂无工作记录</td></tr>';
+  const rows=items.length?items.map(w=>'<tr><td>'+esc(w.date)+'</td><td>'+esc(w.content)+'</td><td>'+esc(w.review||"—")+'</td><td class="status-dot">'+(w.done?('✓ 已完成'+(w.completedDate?'<div style="margin-top:3px;font-size:10px;color:var(--muted)">完成：'+esc(w.completedDate)+'</div>':'')):"○ 进行中")+'</td></tr>').join(""):'<tr><td colspan="4">暂无工作记录</td></tr>';
   document.getElementById("modalRoot").innerHTML='<div class="modal-wrap" onclick="if(event.target===this)closeModal()"><div class="modal">'+
     '<div class="modal-head"><div><h2>'+esc(p.name)+'</h2><div class="sub">'+esc(p.status)+' · '+esc(p.priority)+'优先级 · '+(p.progress==null?"进度待确认":Number(p.progress)+"%")+'</div></div><button class="close" onclick="closeModal()">×</button></div>'+
     '<div class="modal-body">'+
