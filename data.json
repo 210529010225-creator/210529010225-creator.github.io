@@ -14,13 +14,14 @@
     {
       "id": "p2",
       "name": "GBA Tax Incentives — Session 05",
-      "status": "进行中",
+      "status": "已完成",
       "priority": "中",
-      "progress": 90,
+      "progress": 100,
       "background": "粤港澳大湾区税收优惠英文演讲及PPT，重点为趋严背景下的前置管理和持续合规。",
-      "current": "CIT、IIT、实质性运营及案例框架基本完成。",
-      "next": "完成区域政策 final double-check，并统一最终口径和 speaker script。",
-      "deadline": ""
+      "current": "项目已完成：GBA税收优惠PPT、区域政策核对及发言稿已完成并交付。",
+      "next": "—",
+      "deadline": "",
+      "completedDate": "2026-09-19"
     },
     {
       "id": "p3",
@@ -58,7 +59,7 @@
       "title": "GBA：完成区域政策 final double-check",
       "projectId": "p2",
       "priority": "中",
-      "done": false
+      "done": true
     },
     {
       "id": "t3",
@@ -89,6 +90,13 @@
       "projectId": "p2",
       "title": "GBA 框架基本完成",
       "body": "CIT 15%、IIT、实质性运营、自行判定及留存备查逻辑已形成。"
+    },
+    {
+      "id": "l_gba_complete_20260919",
+      "date": "2026-09-19",
+      "projectId": "p2",
+      "title": "项目完成",
+      "body": "GBA Tax Incentives — Session 05 已完成，归入已完成项目。"
     }
   ]
 }
