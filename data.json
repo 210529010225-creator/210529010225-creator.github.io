@@ -1,0 +1,94 @@
+{
+  "projects": [
+    {
+      "id": "p1",
+      "name": "中澳税收居民 / 总机构研究",
+      "status": "进行中",
+      "priority": "高",
+      "progress": 72,
+      "background": "为澳大利亚税务机关准备中国法律体系、税收居民身份及“总机构”相关研究。",
+      "current": "已完成中国法律体系、旧中澳协定居民规则、澳洲案例及部分中国案例研究。",
+      "next": "继续检索中国公开裁判、行政复议及税务实务中“境内设立企业但总机构在境外”的材料。",
+      "deadline": ""
+    },
+    {
+      "id": "p2",
+      "name": "GBA Tax Incentives — Session 05",
+      "status": "进行中",
+      "priority": "中",
+      "progress": 90,
+      "background": "粤港澳大湾区税收优惠英文演讲及PPT，重点为趋严背景下的前置管理和持续合规。",
+      "current": "CIT、IIT、实质性运营及案例框架基本完成。",
+      "next": "完成区域政策 final double-check，并统一最终口径和 speaker script。",
+      "deadline": ""
+    },
+    {
+      "id": "p3",
+      "name": "税务师考试",
+      "status": "进行中",
+      "priority": "高",
+      "progress": 30,
+      "background": "11月中旬参加税一、税二、涉税法律考试。",
+      "current": "已系统学习增值税、消费税，进入小税种 / 个税 / 企税阶段。",
+      "next": "按学习计划推进小税种，并记录每天完成章节。",
+      "deadline": "2026-11"
+    },
+    {
+      "id": "p4",
+      "name": "电商审计与税务整改",
+      "status": "进行中",
+      "priority": "中",
+      "progress": 35,
+      "background": "梳理2019–2026H1收入、增值税、企业所得税及股东个税等整改问题。",
+      "current": "已形成主要问题清单，等待进一步资料和口径核对。",
+      "next": "补充股东个税资料清单，并统一各年度收入和VAT处理口径。",
+      "deadline": ""
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "title": "继续检索“总机构在境外”的中国案例 / 复议材料",
+      "projectId": "p1",
+      "priority": "高",
+      "done": false
+    },
+    {
+      "id": "t2",
+      "title": "GBA：完成区域政策 final double-check",
+      "projectId": "p2",
+      "priority": "中",
+      "done": false
+    },
+    {
+      "id": "t3",
+      "title": "税务师：推进小税种学习",
+      "projectId": "p3",
+      "priority": "高",
+      "done": false
+    }
+  ],
+  "logs": [
+    {
+      "id": "l1",
+      "date": "2026-09-18",
+      "projectId": "p1",
+      "title": "澳洲案例与旧协定规则已完成",
+      "body": "已整理 Bywater、Huang、Songa Offshore 等案例，并确认旧中澳协定双重居民规则中的 POEM / head office 逻辑。"
+    },
+    {
+      "id": "l2",
+      "date": "2026-09-18",
+      "projectId": "p1",
+      "title": "找到中国案例线索",
+      "body": "现有材料支持“总机构并不当然等于注册地”的分析，但仍需继续寻找更直接的反例或官方论证。"
+    },
+    {
+      "id": "l3",
+      "date": "2026-09-17",
+      "projectId": "p2",
+      "title": "GBA 框架基本完成",
+      "body": "CIT 15%、IIT、实质性运营、自行判定及留存备查逻辑已形成。"
+    }
+  ]
+}
