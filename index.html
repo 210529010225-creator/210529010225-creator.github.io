@@ -198,7 +198,7 @@ function projectCard(p){
   return '<div class="card project-card '+(p.status==="已完成"?"completed":"")+'" onclick="openProject(\''+p.id+'\')">'+
     '<div class="project-top"><div class="project-name">'+esc(p.name)+'</div><span class="badge '+(p.status==="已完成"?"done":priorityClass(p.priority))+'">'+esc(p.status)+'</span></div>'+
     '<div class="project-bg">'+esc(p.current||p.background)+'</div>'+
-    '<div class="progress-row"><div class="progressbar" style="flex:1"><span style="width:'+Number(p.progress||0)+'%"></span></div><div class="progress-num">'+Number(p.progress||0)+'%</div></div>'+
+    '<div class="progress-row"><div class="progressbar" style="flex:1"><span style="width:'+(p.progress==null?0:Number(p.progress))+'%"></span></div><div class="progress-num">'+(p.progress==null?"—":Number(p.progress)+"%")+'</div></div>'+
     '<div class="next">'+(p.status==="已完成"?"完成于 "+esc(p.completedDate||"—"):"下一步："+esc(p.next||"—"))+'</div>'+
     '</div>';
 }
@@ -217,7 +217,7 @@ function openProject(id){
   const items=p.workItems||[];
   const rows=items.length?items.map(w=>'<tr><td>'+esc(w.date)+'</td><td>'+esc(w.content)+'</td><td>'+esc(w.review||"—")+'</td><td class="status-dot">'+(w.done?"✓ 已完成":"○ 进行中")+'</td></tr>').join(""):'<tr><td colspan="4">暂无工作记录</td></tr>';
   document.getElementById("modalRoot").innerHTML='<div class="modal-wrap" onclick="if(event.target===this)closeModal()"><div class="modal">'+
-    '<div class="modal-head"><div><h2>'+esc(p.name)+'</h2><div class="sub">'+esc(p.status)+' · '+esc(p.priority)+'优先级 · '+Number(p.progress||0)+'%</div></div><button class="close" onclick="closeModal()">×</button></div>'+
+    '<div class="modal-head"><div><h2>'+esc(p.name)+'</h2><div class="sub">'+esc(p.status)+' · '+esc(p.priority)+'优先级 · '+(p.progress==null?"进度待确认":Number(p.progress)+"%")+'</div></div><button class="close" onclick="closeModal()">×</button></div>'+
     '<div class="modal-body">'+
       '<div class="detail-grid">'+
         '<div class="detail-box full"><div class="detail-label">项目背景</div><div class="detail-text">'+esc(p.background)+'</div></div>'+
