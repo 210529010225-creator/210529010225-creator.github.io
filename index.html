@@ -40,16 +40,14 @@ h1{font-size:30px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--mute
     <button data-view="projects">项目</button>
     <button data-view="logs">项目日志</button>
   </div>
-  <div class="side-actions">
-    <button id="exportBtn">导出备份</button>
-    <button id="importBtn">导入备份</button>
-    <input id="importFile" type="file" accept=".json" class="hidden">
+  <div class="side-actions" style="font-size:12px;color:#9ca3ad;line-height:1.6;padding:8px">
+    数据由 ChatGPT 维护<br>刷新网页即可查看最新版本
   </div>
 </aside>
 
 <main>
 <section id="dashboardView">
-  <div class="topbar"><div><h1>工作总览</h1><div class="subtitle" id="todayLabel"></div></div><button class="primary" onclick="openTaskModal()">+ 新增任务</button></div>
+  <div class="topbar"><div><h1>工作总览</h1><div class="subtitle" id="todayLabel"></div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
   <div class="cards">
     <div class="card metric"><div class="k">进行中项目</div><div class="v" id="mProjects">0</div></div>
     <div class="card metric"><div class="k">待办事项</div><div class="v" id="mTodo">0</div></div>
@@ -68,12 +66,12 @@ h1{font-size:30px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--mute
 </section>
 
 <section id="projectsView" class="hidden">
-  <div class="topbar"><div><h1>项目</h1><div class="subtitle">集中查看背景、当前进展、下一步和完成度。</div></div><button class="primary" onclick="openProjectModal()">+ 新增项目</button></div>
+  <div class="topbar"><div><h1>项目</h1><div class="subtitle">集中查看背景、当前进展、下一步和完成度。</div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
   <div id="projectGrid" class="project-grid"></div>
 </section>
 
 <section id="logsView" class="hidden">
-  <div class="topbar"><div><h1>项目日志</h1><div class="subtitle">记录关键进展、结论和方向变化。</div></div><button class="primary" onclick="openLogModal()">+ 新增进展</button></div>
+  <div class="topbar"><div><h1>项目日志</h1><div class="subtitle">记录关键进展、结论和方向变化。</div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
   <div class="panel"><div id="logList"></div></div>
 </section>
 </main>
@@ -98,8 +96,8 @@ logs:[
 {id:"l2",date:"2026-09-18",projectId:"p1",title:"找到中国案例线索",body:"现有材料支持“总机构并不当然等于注册地”的分析，但仍需继续寻找更直接的反例或官方论证。"},
 {id:"l3",date:"2026-09-17",projectId:"p2",title:"GBA 框架基本完成",body:"CIT 15%、IIT、实质性运营、自行判定及留存备查逻辑已形成。"}
 ]};
-let data=JSON.parse(localStorage.getItem("projectDashboardData")||"null")||defaultData;
-function save(){localStorage.setItem("projectDashboardData",JSON.stringify(data));renderAll()}
+let data=defaultData;
+function save(){renderAll()}
 function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 function projectName(id){return data.projects.find(p=>p.id===id)?.name||"未归属项目"}
 function priorityClass(v){return v==="高"?"high":v==="中"?"medium":"low"}
@@ -113,17 +111,17 @@ function renderAll(){
  document.getElementById("todayLabel").textContent=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
  const tasks=data.tasks.length?data.tasks.map(t=>`
  <div class="task ${t.done?"done":""}">
- <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask('${t.id}')">
+ <input type="checkbox" ${t.done?"checked":""} disabled>
  <div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${esc(projectName(t.projectId))}</div></div>
  <span class="pill ${priorityClass(t.priority)}">${t.priority}</span></div>`).join(""):'<div class="empty">今天还没有任务。</div>';
  document.getElementById("dashTasks").innerHTML=tasks;document.getElementById("todayTasks").innerHTML=tasks;
  document.getElementById("dashProjects").innerHTML=active.length?active.map(p=>`
- <div class="project" onclick="openProjectModal('${p.id}')">
+ <div class="project">
  <div class="project-head"><div class="project-name">${esc(p.name)}</div><span class="pill ${priorityClass(p.priority)}">${p.priority}</span></div>
  <div class="project-next">下一步：${esc(p.next)}</div>
  <div class="bar-row"><div class="bar" style="flex:1"><span style="width:${p.progress}%"></span></div><div class="pct">${p.progress}%</div></div></div>`).join(""):'<div class="empty">还没有进行中的项目。</div>';
  document.getElementById("projectGrid").innerHTML=data.projects.map(p=>`
- <div class="card project-card" onclick="openProjectModal('${p.id}')">
+ <div class="card project-card">
  <div class="project-head"><h3>${esc(p.name)}</h3><span class="pill ${priorityClass(p.priority)}">${p.priority}</span></div>
  <div class="desc">${esc(p.background)}</div>
  <div class="bar-row"><div class="bar" style="flex:1"><span style="width:${p.progress}%"></span></div><div class="pct">${p.progress}%</div></div>
@@ -157,10 +155,17 @@ function deleteProject(id){data.projects=data.projects.filter(p=>p.id!==id);data
 function openLogModal(){modal(`<h3>新增项目进展</h3><div class="form-grid"><div class="field"><label>日期</label><input id="fLDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>所属项目</label><select id="fLProject">${projectOptions()}</select></div><div class="field full"><label>进展标题</label><input id="fLTitle" placeholder="例如：完成中国案例检索第一轮"></div><div class="field full"><label>详细内容 / 关键结论</label><textarea id="fLBody"></textarea></div></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">取消</button><button class="primary" onclick="addLog()">保存</button></div>`)}
 function addLog(){const title=document.getElementById("fLTitle").value.trim();if(!title)return;data.logs.push({id:"l"+Date.now(),date:document.getElementById("fLDate").value,projectId:document.getElementById("fLProject").value,title,body:document.getElementById("fLBody").value.trim()});closeModal();save()}
 
-document.getElementById("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="项目工作台备份.json";a.click();URL.revokeObjectURL(a.href)};
-document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
-document.getElementById("importFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();alert("导入完成。")}catch(e){alert("备份文件无效。")}};r.readAsText(f)};
-renderAll();
+async function loadCloudData(){
+  try{
+    const res=await fetch("data.json?ts="+Date.now(),{cache:"no-store"});
+    if(!res.ok) throw new Error("data load failed");
+    data=await res.json();
+  }catch(e){
+    data=defaultData;
+  }
+  renderAll();
+}
+loadCloudData();
 </script>
 </body>
 </html>
