@@ -41,6 +41,7 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
 .modal-wrap{position:fixed;inset:0;background:rgba(8,10,13,.42);display:flex;align-items:center;justify-content:center;padding:24px;z-index:20}.modal{width:min(900px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;box-shadow:0 25px 90px rgba(0,0,0,.2)}.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:20px 22px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start;z-index:2}.modal-head h2{font-size:20px;margin:0 0 5px}.close{border:0;background:#f1f2f4;width:32px;height:32px;border-radius:9px}.modal-body{padding:22px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}.detail-box{border:1px solid var(--line);border-radius:14px;padding:14px}.detail-box.full{grid-column:1/-1}.detail-label{font-size:10px;color:#8d939b;text-transform:uppercase;letter-spacing:.3px}.detail-text{font-size:13px;line-height:1.65;margin-top:6px}
 .work-table{width:100%;border-collapse:collapse}.work-table th,.work-table td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}.work-table th{font-size:10px;color:#8b9199;font-weight:650}.work-table td{font-size:12px;line-height:1.55}.status-dot{white-space:nowrap}
 .source-link{display:block;margin-top:8px;font-size:12px;color:#303742;text-decoration:none;background:#f7f8f9;border:1px solid var(--line);border-radius:10px;padding:9px 10px}.source-link:hover{background:#f1f3f5}
+.week-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.week-title{font-size:16px;font-weight:800}.week-nav{display:flex;gap:7px}.week-nav button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;color:#5e656e}.week-wrap{overflow:auto}.week-calendar{min-width:1120px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}.week-head,.week-row{display:grid;grid-template-columns:64px repeat(7,minmax(145px,1fr))}.week-head{position:sticky;top:0;z-index:2;background:#fafbfc;border-bottom:1px solid var(--line)}.week-head>div{padding:11px 9px;border-left:1px solid var(--line);font-size:11px;color:#727983;text-align:center}.week-head>div:first-child{border-left:0}.week-head .today-col{background:#f0f2f5;color:#22272e;font-weight:800}.week-row{min-height:66px;border-bottom:1px solid var(--line)}.week-row:last-child{border-bottom:0}.week-time{padding:11px 8px;font-size:10px;color:#9298a1}.week-cell{padding:5px;border-left:1px solid var(--line);min-height:66px}.week-cell.today-col{background:#fbfbfc}.week-event{border:1px solid #e2e5e9;background:#f6f7f9;border-radius:9px;padding:7px 8px;margin-bottom:4px}.week-event.done{background:#f0f4f0}.week-event-time{font-size:9px;color:#858c95}.week-event-title{font-size:11px;font-weight:700;line-height:1.35;margin-top:2px}.week-event-project{font-size:9px;color:#7d848d;margin-top:3px}.week-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.week-summary .panel{padding:15px 17px}
 @media(max-width:980px){.app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.sidebar-note{position:static;margin-top:20px}.nav{display:flex;gap:5px;overflow:auto}.nav button{width:auto;white-space:nowrap}main{padding:24px 17px}.day-grid,.project-grid,.knowledge-grid,.detail-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
@@ -50,6 +51,7 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
   <div class="brand">个人工作台<small>时间 · 项目 · 知识</small></div>
   <div class="nav">
     <button class="active" data-view="day">📅 每日</button>
+    <button data-view="week">🗓️ 每周</button>
     <button data-view="projects">项目</button>
     <button data-view="knowledge">知识库</button>
   </div>
@@ -74,6 +76,20 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
   </div>
 </section>
 
+<section id="weekView" class="view">
+  <div class="header"><div><h1>每周时间表</h1><div class="sub">横向看周一到周日，纵向看每个小时；所有内容自动来自每日时间轴。</div></div><span class="sync">每日记录自动汇总</span></div>
+  <div class="week-summary">
+    <div class="panel stat"><div class="stat-label">本周已记录</div><div class="stat-value" id="weekHours">0h</div></div>
+    <div class="panel stat"><div class="stat-label">涉及项目</div><div class="stat-value" id="weekProjects">0</div></div>
+    <div class="panel stat"><div class="stat-label">记录事项</div><div class="stat-value" id="weekEvents">0</div></div>
+  </div>
+  <div class="week-toolbar">
+    <div class="week-title" id="weekRangeTitle"></div>
+    <div class="week-nav"><button onclick="shiftWeek(-7)">← 上一周</button><button onclick="goCurrentWeek()">本周</button><button onclick="shiftWeek(7)">下一周 →</button></div>
+  </div>
+  <div class="week-wrap"><div id="weekCalendar" class="week-calendar"></div></div>
+</section>
+
 <section id="projectsView" class="view">
   <div class="header"><div><h1>项目档案</h1><div class="sub">点开项目查看背景、当前状态、下一步和完整工作记录。</div></div><span class="sync">进行中 / 已完成分开归档</span></div>
   <div class="section-title"><h2>进行中</h2><span class="section-count" id="activeProjectCount"></span></div>
@@ -94,6 +110,7 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
 <script>
 let data={meta:{},days:[],projects:[],todayQueue:[],knowledge:[]};
 let selectedDate="";
+let selectedWeekStart="";
 
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 function projectById(id){return data.projects.find(p=>p.id===id)}
@@ -102,6 +119,10 @@ function priorityClass(v){return v==="高"?"high":v==="中"?"mid":""}
 function fmtDate(s){if(!s)return"";const d=new Date(s+"T00:00:00");return d.toLocaleDateString("zh-CN",{month:"long",day:"numeric"})}
 function weekday(s){const d=new Date(s+"T00:00:00");return ["周日","周一","周二","周三","周四","周五","周六"][d.getDay()]}
 function durationHours(start,end){if(!start||!end)return 0;const [sh,sm]=start.split(":").map(Number),[eh,em]=end.split(":").map(Number);return Math.max(0,(eh*60+em-sh*60-sm)/60)}
+function isoDate(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day}
+function mondayOf(dateStr){const d=new Date((dateStr||new Date().toISOString().slice(0,10))+"T00:00:00");const day=d.getDay();const diff=(day===0?-6:1-day);d.setDate(d.getDate()+diff);return isoDate(d)}
+function addDays(dateStr,n){const d=new Date(dateStr+"T00:00:00");d.setDate(d.getDate()+n);return isoDate(d)}
+function isToday(dateStr){return dateStr===isoDate(new Date())}
 
 document.querySelectorAll(".nav button").forEach(btn=>btn.addEventListener("click",()=>{
   document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
@@ -136,6 +157,36 @@ function renderTimeline(){
   const hours=(day.slots||[]).reduce((n,e)=>n+durationHours(e.start,e.end),0);
   document.getElementById("recordedHours").textContent=(Math.round(hours*10)/10)+"h";
 }
+
+function renderWeek(){
+  if(!selectedWeekStart) selectedWeekStart=mondayOf(selectedDate||(data.days[0]?.date)||isoDate(new Date()));
+  const dates=Array.from({length:7},(_,i)=>addDays(selectedWeekStart,i));
+  const end=dates[6];
+  document.getElementById("weekRangeTitle").textContent=fmtDate(selectedWeekStart)+" — "+fmtDate(end);
+  const allSlots=[];
+  for(const date of dates){
+    const day=data.days.find(d=>d.date===date);
+    for(const e of (day?.slots||[])) allSlots.push({...e,date});
+  }
+  document.getElementById("weekHours").textContent=(Math.round(allSlots.reduce((n,e)=>n+durationHours(e.start,e.end),0)*10)/10)+"h";
+  document.getElementById("weekProjects").textContent=new Set(allSlots.map(e=>e.projectId).filter(Boolean)).size;
+  document.getElementById("weekEvents").textContent=allSlots.length;
+
+  let html='<div class="week-head"><div></div>'+dates.map(date=>'<div class="'+(isToday(date)?"today-col":"")+'"><div>'+weekday(date)+'</div><div style="font-weight:800;margin-top:3px">'+fmtDate(date)+'</div></div>').join("")+'</div>';
+  for(let h=8;h<=22;h++){
+    const hh=String(h).padStart(2,"0")+":00";
+    html+='<div class="week-row"><div class="week-time">'+hh+'</div>';
+    for(const date of dates){
+      const day=data.days.find(d=>d.date===date);
+      const events=(day?.slots||[]).filter(e=>parseInt(e.start,10)===h);
+      html+='<div class="week-cell '+(isToday(date)?"today-col":"")+'">'+events.map(e=>'<div class="week-event '+(e.done?"done":"")+'"><div class="week-event-time">'+esc(e.start)+'–'+esc(e.end)+'</div><div class="week-event-title">'+esc(e.title)+'</div><div class="week-event-project">'+esc(e.projectId?projectName(e.projectId):e.category||"")+'</div></div>').join("")+'</div>';
+    }
+    html+='</div>';
+  }
+  document.getElementById("weekCalendar").innerHTML=html;
+}
+function shiftWeek(n){selectedWeekStart=addDays(selectedWeekStart||mondayOf(selectedDate),n);renderWeek()}
+function goCurrentWeek(){selectedWeekStart=mondayOf(isoDate(new Date()));renderWeek()}
 
 function renderQueue(){
   const list=data.todayQueue||[];
@@ -209,7 +260,7 @@ async function load(){
     data=await r.json();
   }catch(e){}
   document.getElementById("updatedAt").textContent="更新："+(data.meta?.updatedAt||"—");
-  renderDayStrip();renderTimeline();renderQueue();renderProjects();renderKnowledge();
+  renderDayStrip();renderTimeline();renderWeek();renderQueue();renderProjects();renderKnowledge();
 }
 load();
 </script>
