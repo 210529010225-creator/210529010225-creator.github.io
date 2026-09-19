@@ -18,12 +18,12 @@ h1{font-size:30px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--mute
 .cards{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:14px;margin-bottom:18px}.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 .metric{padding:20px}.metric .k{font-size:12px;color:var(--muted);margin-bottom:9px}.metric .v{font-size:27px;font-weight:800}
 .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.panel{padding:20px}.panel h2{font-size:16px;margin:0 0 16px}
-.task{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}.task:first-child{border-top:0}.task input{width:17px;height:17px;margin-top:2px}.task.done .task-title{text-decoration:line-through;color:#989ea7}.task-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.task{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}.task:first-child{border-top:0}.task input{width:17px;height:17px;margin-top:2px}.task.done .task-title{text-decoration:line-through;color:#989ea7}.task-meta{font-size:12px;color:var(--muted);margin-top:4px}.task-actions{display:flex;gap:5px}.tiny{border:1px solid var(--line);background:#fff;color:#666d76;border-radius:7px;padding:4px 7px;font-size:11px}.tiny:hover{background:#f5f6f8}.local-state{font-size:11px;color:#9ca3ad;line-height:1.65;margin-bottom:8px}
 .pill{font-size:11px;padding:4px 8px;border-radius:999px;background:var(--soft);color:#5d636c;white-space:nowrap}.pill.high{background:#f4e9e9;color:#8d4242}.pill.medium{background:#f3efe3;color:#806a35}.pill.low{background:#eaf0ea;color:#507052}
 .project{padding:15px 0;border-top:1px solid var(--line);cursor:pointer}.project:first-child{border-top:0}.project-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.project-name{font-weight:750}.project-next{font-size:12px;color:var(--muted);margin:6px 0 10px}
 .bar{height:7px;background:#eceef1;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:#333842;border-radius:99px}.bar-row{display:flex;align-items:center;gap:10px}.pct{width:36px;text-align:right;font-size:11px;color:#7c828b}
 .hidden{display:none!important}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #d9dde3;border-radius:14px}
-.project-grid{display:grid;grid-template-columns:repeat(3,minmax(230px,1fr));gap:14px}.project-card{padding:18px}.project-section{margin-top:26px}.project-section:first-child{margin-top:0}.section-title{font-size:15px;font-weight:800;margin:0 0 12px}.section-count{font-size:11px;color:var(--muted);font-weight:500;margin-left:6px}.completed-grid .project-card{opacity:.72;background:#fafafa}.completed-grid .bar span{background:#9aa1aa}.completed-grid .next{display:none}.project-card h3{font-size:16px;margin:0 0 7px}.project-card .desc{color:#6f7680;font-size:12px;line-height:1.55;min-height:38px;margin-bottom:14px}.project-card .next{font-size:12px;margin:12px 0;color:#41464e}
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(230px,1fr));gap:14px}.project-card{padding:18px;cursor:pointer}.project-section{margin-top:26px}.project-section:first-child{margin-top:0}.section-title{font-size:15px;font-weight:800;margin:0 0 12px}.section-count{font-size:11px;color:var(--muted);font-weight:500;margin-left:6px}.completed-grid .project-card{opacity:.72;background:#fafafa}.completed-grid .bar span{background:#9aa1aa}.completed-grid .next{display:none}.project-card h3{font-size:16px;margin:0 0 7px}.project-card .desc{color:#6f7680;font-size:12px;line-height:1.55;min-height:38px;margin-bottom:14px}.project-card .next{font-size:12px;margin:12px 0;color:#41464e}
 .log-item{padding:14px 0;border-top:1px solid var(--line)}.log-item:first-child{border-top:0}.log-date{font-size:11px;color:var(--muted)}.log-title{font-weight:700;margin:4px 0}.log-body{font-size:13px;color:#555c65;line-height:1.55}
 .modal-wrap{position:fixed;inset:0;background:rgba(11,13,16,.34);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}.modal{background:#fff;width:min(720px,100%);max-height:88vh;overflow:auto;border-radius:18px;padding:22px;box-shadow:0 25px 80px rgba(0,0,0,.18)}.modal h3{margin:0 0 18px;font-size:20px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:12px;color:#69707a}input,textarea,select{border:1px solid #dfe2e7;border-radius:10px;padding:10px 11px;background:#fff;color:#20242a}textarea{min-height:88px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
@@ -40,14 +40,15 @@ h1{font-size:30px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--mute
     <button data-view="projects">项目</button>
     <button data-view="logs">项目日志</button>
   </div>
-  <div class="side-actions" style="font-size:12px;color:#9ca3ad;line-height:1.6;padding:8px">
-    数据由 ChatGPT 维护<br>刷新网页即可查看最新版本
+  <div class="side-actions">
+    <div class="local-state" id="localState">云端数据 + 本地编辑</div>
+    <button onclick="resetLocalChanges()">恢复云端版本</button>
   </div>
 </aside>
 
 <main>
 <section id="dashboardView">
-  <div class="topbar"><div><h1>工作总览</h1><div class="subtitle" id="todayLabel"></div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
+  <div class="topbar"><div><h1>工作总览</h1><div class="subtitle" id="todayLabel"></div></div><button class="primary" onclick="openTaskModal()">+ 新增任务</button></div>
   <div class="cards">
     <div class="card metric"><div class="k">进行中项目</div><div class="v" id="mProjects">0</div></div>
     <div class="card metric"><div class="k">待办事项</div><div class="v" id="mTodo">0</div></div>
@@ -66,12 +67,12 @@ h1{font-size:30px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--mute
 </section>
 
 <section id="projectsView" class="hidden">
-  <div class="topbar"><div><h1>项目</h1><div class="subtitle">集中查看背景、当前进展、下一步和完成度。</div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
+  <div class="topbar"><div><h1>项目</h1><div class="subtitle">集中查看背景、当前进展、下一步和完成度。</div></div><button class="primary" onclick="openProjectModal()">+ 新增项目</button></div>
   <div class="project-section"><div class="section-title">进行中 <span class="section-count" id="activeProjectCount"></span></div><div id="activeProjectGrid" class="project-grid"></div></div><div class="project-section"><div class="section-title">已完成 <span class="section-count" id="completedProjectCount"></span></div><div id="completedProjectGrid" class="project-grid completed-grid"></div></div>
 </section>
 
 <section id="logsView" class="hidden">
-  <div class="topbar"><div><h1>项目日志</h1><div class="subtitle">记录关键进展、结论和方向变化。</div></div><span class="pill">直接告诉 ChatGPT 更新</span></div>
+  <div class="topbar"><div><h1>项目日志</h1><div class="subtitle">记录关键进展、结论和方向变化。</div></div><button class="primary" onclick="openLogModal()">+ 新增进展</button></div>
   <div class="panel"><div id="logList"></div></div>
 </section>
 </main>
@@ -96,8 +97,28 @@ logs:[
 {id:"l2",date:"2026-09-18",projectId:"p1",title:"找到中国案例线索",body:"现有材料支持“总机构并不当然等于注册地”的分析，但仍需继续寻找更直接的反例或官方论证。"},
 {id:"l3",date:"2026-09-17",projectId:"p2",title:"GBA 框架基本完成",body:"CIT 15%、IIT、实质性运营、自行判定及留存备查逻辑已形成。"}
 ]};
+let cloudData=defaultData;
 let data=defaultData;
-function save(){renderAll()}
+const LOCAL_KEY="projectDashboardLocalOverridesV1";
+function blankOverrides(){return {projects:{},tasks:{},logs:{},deletedProjects:[],deletedTasks:[],deletedLogs:[]}}
+function loadOverrides(){try{return {...blankOverrides(),...JSON.parse(localStorage.getItem(LOCAL_KEY)||"{}")}}catch(e){return blankOverrides()}}
+let overrides=loadOverrides();
+function persistOverrides(){localStorage.setItem(LOCAL_KEY,JSON.stringify(overrides));updateLocalState()}
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function applyOverrides(base){
+  const out=clone(base);
+  out.projects=out.projects.filter(x=>!overrides.deletedProjects.includes(x.id));
+  out.tasks=out.tasks.filter(x=>!overrides.deletedTasks.includes(x.id));
+  out.logs=out.logs.filter(x=>!overrides.deletedLogs.includes(x.id));
+  for(const [id,obj] of Object.entries(overrides.projects)){const i=out.projects.findIndex(x=>x.id===id);if(i>=0)out.projects[i]=obj;else out.projects.push(obj)}
+  for(const [id,obj] of Object.entries(overrides.tasks)){const i=out.tasks.findIndex(x=>x.id===id);if(i>=0)out.tasks[i]=obj;else out.tasks.push(obj)}
+  for(const [id,obj] of Object.entries(overrides.logs)){const i=out.logs.findIndex(x=>x.id===id);if(i>=0)out.logs[i]=obj;else out.logs.push(obj)}
+  return out;
+}
+function save(){data=applyOverrides(cloudData);persistOverrides();renderAll()}
+function localChangeCount(){return Object.keys(overrides.projects).length+Object.keys(overrides.tasks).length+Object.keys(overrides.logs).length+overrides.deletedProjects.length+overrides.deletedTasks.length+overrides.deletedLogs.length}
+function updateLocalState(){const el=document.getElementById("localState");if(el){const n=localChangeCount();el.innerHTML=n?("云端数据 + <b>"+n+"</b> 项本地修改<br>本地修改优先显示"):"云端数据 + 本地编辑<br>目前没有本地修改"}}
+function resetLocalChanges(){if(!confirm("确定清除当前浏览器里的本地修改，恢复为云端版本吗？"))return;overrides=blankOverrides();localStorage.removeItem(LOCAL_KEY);data=clone(cloudData);renderAll();updateLocalState()}
 function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
 function projectName(id){return data.projects.find(p=>p.id===id)?.name||"未归属项目"}
 function priorityClass(v){return v==="高"?"high":v==="中"?"medium":"low"}
@@ -111,8 +132,9 @@ function renderAll(){
  document.getElementById("todayLabel").textContent=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
  const openTasks=data.tasks.filter(t=>!t.done);\n const tasks=openTasks.length?openTasks.map(t=>`
  <div class="task ${t.done?"done":""}">
- <input type="checkbox" ${t.done?"checked":""} disabled>
+ <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask('${t.id}')">
  <div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${esc(projectName(t.projectId))}</div></div>
+ <div class="task-actions"><button class="tiny" onclick="openTaskModal('${t.id}')">编辑</button><button class="tiny" onclick="deleteTask('${t.id}')">删除</button></div>
  <span class="pill ${priorityClass(t.priority)}">${t.priority}</span></div>`).join(""):'<div class="empty">今天还没有任务。</div>';
  document.getElementById("dashTasks").innerHTML=tasks;document.getElementById("todayTasks").innerHTML=tasks;
  document.getElementById("dashProjects").innerHTML=active.length?active.map(p=>`
@@ -124,7 +146,7 @@ function renderAll(){
  document.getElementById("activeProjectCount").textContent="("+active.length+")";
  document.getElementById("completedProjectCount").textContent="("+completed.length+")";
  const projectCard=p=>`
- <div class="card project-card">
+ <div class="card project-card" onclick="openProjectModal(\'${p.id}\')">
  <div class="project-head"><h3>${esc(p.name)}</h3><span class="pill ${priorityClass(p.priority)}">${p.priority}</span></div>
  <div class="desc">${esc(p.background)}</div>
  <div class="bar-row"><div class="bar" style="flex:1"><span style="width:${p.progress}%"></span></div><div class="pct">${p.progress}%</div></div>
@@ -135,14 +157,15 @@ function renderAll(){
  document.getElementById("logList").innerHTML=data.logs.length?data.logs.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(l=>`
  <div class="log-item"><div class="log-date">${esc(l.date)} · ${esc(projectName(l.projectId))}</div><div class="log-title">${esc(l.title)}</div><div class="log-body">${esc(l.body)}</div></div>`).join(""):'<div class="empty">还没有项目日志。</div>'
 }
-function toggleTask(id){const t=data.tasks.find(x=>x.id===id);if(t){t.done=!t.done;save()}}
+function toggleTask(id){const t=data.tasks.find(x=>x.id===id);if(t){t.done=!t.done;overrides.tasks[id]=clone(t);save()}}
 document.querySelectorAll(".nav button").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");["dashboard","today","projects","logs"].forEach(v=>document.getElementById(v+"View").classList.add("hidden"));document.getElementById(btn.dataset.view+"View").classList.remove("hidden")});
 function modal(c){document.getElementById("modalRoot").innerHTML='<div class="modal-wrap" onclick="if(event.target===this)closeModal()"><div class="modal">'+c+"</div></div>"}
 function closeModal(){document.getElementById("modalRoot").innerHTML=""}
 function projectOptions(s=""){return data.projects.map(p=>'<option value="'+p.id+'" '+(p.id===s?"selected":"")+">"+esc(p.name)+"</option>").join("")}
 
-function openTaskModal(){modal(`<h3>新增任务</h3><div class="form-grid"><div class="field full"><label>任务内容</label><input id="fTaskTitle" placeholder="下一步具体要做什么"></div><div class="field"><label>所属项目</label><select id="fTaskProject"><option value="">未归属项目</option>${projectOptions()}</select></div><div class="field"><label>优先级</label><select id="fTaskPriority"><option>高</option><option selected>中</option><option>低</option></select></div></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">取消</button><button class="primary" onclick="addTask()">保存</button></div>`)}
-function addTask(){const title=document.getElementById("fTaskTitle").value.trim();if(!title)return;data.tasks.push({id:"t"+Date.now(),title,projectId:document.getElementById("fTaskProject").value,priority:document.getElementById("fTaskPriority").value,done:false});closeModal();save()}
+function openTaskModal(id=""){const t=id?data.tasks.find(x=>x.id===id):null;modal(`<h3>${t?"编辑任务":"新增任务"}</h3><div class="form-grid"><div class="field full"><label>任务内容</label><input id="fTaskTitle" value="${t?esc(t.title):""}" placeholder="下一步具体要做什么"></div><div class="field"><label>所属项目</label><select id="fTaskProject"><option value="">未归属项目</option>${projectOptions(t?.projectId||"")}</select></div><div class="field"><label>优先级</label><select id="fTaskPriority">${["高","中","低"].map(x=>'<option '+((t?.priority||"中")===x?"selected":"")+">"+x+"</option>").join("")}</select></div></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">取消</button><button class="primary" onclick="saveTask('${t?.id||""}')">保存</button></div>`)}
+function saveTask(id){const title=document.getElementById("fTaskTitle").value.trim();if(!title)return;const existing=id?data.tasks.find(x=>x.id===id):null;const obj={id:id||"local_t"+Date.now(),title,projectId:document.getElementById("fTaskProject").value,priority:document.getElementById("fTaskPriority").value,done:existing?.done||false};overrides.tasks[obj.id]=obj;overrides.deletedTasks=overrides.deletedTasks.filter(x=>x!==obj.id);closeModal();save()}
+function deleteTask(id){if(!confirm("删除这条任务吗？"))return;delete overrides.tasks[id];if(!overrides.deletedTasks.includes(id))overrides.deletedTasks.push(id);save()}
 
 function openProjectModal(id){const p=id?data.projects.find(x=>x.id===id):null;modal(`<h3>${p?"编辑项目":"新增项目"}</h3><div class="form-grid">
 <div class="field full"><label>项目名称</label><input id="fPName" value="${p?esc(p.name):""}"></div>
@@ -154,21 +177,23 @@ function openProjectModal(id){const p=id?data.projects.find(x=>x.id===id):null;m
 <div class="field"><label>完成进度 %</label><input id="fPProgress" type="number" min="0" max="100" value="${p?.progress??0}"></div>
 <div class="field"><label>截止日期</label><input id="fPDeadline" value="${p?esc(p.deadline):""}" placeholder="YYYY-MM-DD 或文字说明"></div></div>
 <div class="modal-actions">${p?'<button class="danger" onclick="deleteProject(\''+p.id+'\')">删除项目</button>':""}<button class="secondary" onclick="closeModal()">取消</button><button class="primary" onclick="saveProject('${p?.id||""}')">保存</button></div>`)}
-function saveProject(id){const obj={id:id||"p"+Date.now(),name:document.getElementById("fPName").value.trim(),background:document.getElementById("fPBackground").value.trim(),current:document.getElementById("fPCurrent").value.trim(),next:document.getElementById("fPNext").value.trim(),status:document.getElementById("fPStatus").value,priority:document.getElementById("fPPriority").value,progress:Math.max(0,Math.min(100,Number(document.getElementById("fPProgress").value||0))),deadline:document.getElementById("fPDeadline").value.trim()};if(!obj.name)return;if(id){data.projects[data.projects.findIndex(x=>x.id===id)]=obj}else data.projects.push(obj);closeModal();save()}
-function deleteProject(id){data.projects=data.projects.filter(p=>p.id!==id);data.tasks=data.tasks.map(t=>t.projectId===id?{...t,projectId:""}:t);closeModal();save()}
+function saveProject(id){const existing=id?data.projects.find(x=>x.id===id):null;const obj={id:id||"local_p"+Date.now(),name:document.getElementById("fPName").value.trim(),background:document.getElementById("fPBackground").value.trim(),current:document.getElementById("fPCurrent").value.trim(),next:document.getElementById("fPNext").value.trim(),status:document.getElementById("fPStatus").value,priority:document.getElementById("fPPriority").value,progress:Math.max(0,Math.min(100,Number(document.getElementById("fPProgress").value||0))),deadline:document.getElementById("fPDeadline").value.trim(),completedDate:(document.getElementById("fPStatus").value==="已完成"?(existing?.completedDate||new Date().toISOString().slice(0,10)):"")};if(!obj.name)return;overrides.projects[obj.id]=obj;overrides.deletedProjects=overrides.deletedProjects.filter(x=>x!==obj.id);closeModal();save()}
+function deleteProject(id){if(!confirm("删除这个项目吗？"))return;delete overrides.projects[id];if(!overrides.deletedProjects.includes(id))overrides.deletedProjects.push(id);for(const t of data.tasks.filter(t=>t.projectId===id)){const nt={...t,projectId:""};overrides.tasks[t.id]=nt}closeModal();save()}
 
 function openLogModal(){modal(`<h3>新增项目进展</h3><div class="form-grid"><div class="field"><label>日期</label><input id="fLDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>所属项目</label><select id="fLProject">${projectOptions()}</select></div><div class="field full"><label>进展标题</label><input id="fLTitle" placeholder="例如：完成中国案例检索第一轮"></div><div class="field full"><label>详细内容 / 关键结论</label><textarea id="fLBody"></textarea></div></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">取消</button><button class="primary" onclick="addLog()">保存</button></div>`)}
-function addLog(){const title=document.getElementById("fLTitle").value.trim();if(!title)return;data.logs.push({id:"l"+Date.now(),date:document.getElementById("fLDate").value,projectId:document.getElementById("fLProject").value,title,body:document.getElementById("fLBody").value.trim()});closeModal();save()}
+function addLog(){const title=document.getElementById("fLTitle").value.trim();if(!title)return;const obj={id:"local_l"+Date.now(),date:document.getElementById("fLDate").value,projectId:document.getElementById("fLProject").value,title,body:document.getElementById("fLBody").value.trim()};overrides.logs[obj.id]=obj;closeModal();save()}
 
 async function loadCloudData(){
   try{
     const res=await fetch("data.json?ts="+Date.now(),{cache:"no-store"});
     if(!res.ok) throw new Error("data load failed");
-    data=await res.json();
+    cloudData=await res.json();
   }catch(e){
-    data=defaultData;
+    cloudData=defaultData;
   }
+  data=applyOverrides(cloudData);
   renderAll();
+  updateLocalState();
 }
 loadCloudData();
 </script>
