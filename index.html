@@ -60,7 +60,7 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
 
 <main>
 <section id="dayView" class="view active">
-  <div class="header"><div><h1>每日</h1><div class="sub">先看当天待办，再用横向时间轴查看一天的实际安排。</div></div><span class="sync" id="updatedAt"></span></div>
+  <div class="header"><div><h1>每日</h1><div class="sub">先看一天的时间安排，再看当天具体待办。</div></div><span class="sync" id="updatedAt"></span></div>
   <div class="stats">
     <div class="panel stat"><div class="stat-label">今日已记录</div><div class="stat-value" id="recordedHours">0h</div></div>
     <div class="panel stat"><div class="stat-label">待安排</div><div class="stat-value" id="queueCount">0</div></div>
@@ -68,11 +68,11 @@ h1{margin:0 0 7px;font-size:30px;letter-spacing:-.7px}.sub{color:var(--muted);fo
   </div>
   <div id="dateStrip" class="calendar-strip"></div>
   <div class="day-grid">
-    <div class="panel queue"><h2>今日待办</h2><div id="todayQueue"></div></div>
     <div class="panel timeline">
       <div class="day-title"><div><h2 id="selectedDateTitle"></h2><div class="focus" id="dayFocus"></div></div></div>
       <div class="horizontal-timeline-wrap"><div id="timelineRows" class="horizontal-timeline"></div></div>
     </div>
+    <div class="panel queue"><h2>今日待办</h2><div id="todayQueue"></div></div>
   </div>
 </section>
 
